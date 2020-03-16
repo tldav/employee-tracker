@@ -40,6 +40,7 @@ function runApp() {
 					viewRoles();
 					break;
 				case "View employees":
+					viewEmployees();
 					break;
 				case "Add a department":
 					break;
@@ -65,6 +66,16 @@ function viewDepartments() {
 
 function viewRoles() {
 	const query = "SELECT * FROM roles";
+
+	connection.query(query, (error, response) => {
+		if (error) throw error;
+
+		console.table(response);
+	});
+}
+
+function viewEmployees() {
+	const query = "SELECT * FROM employees";
 
 	connection.query(query, (error, response) => {
 		if (error) throw error;
