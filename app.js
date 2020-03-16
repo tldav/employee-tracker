@@ -34,6 +34,7 @@ function runApp() {
 		.then((answer) => {
 			switch (answer.action) {
 				case "View departments":
+					viewDepartments();
 					break;
 				case "View roles":
 					break;
@@ -51,7 +52,17 @@ function runApp() {
 		});
 }
 
-// What would you like to do?
+function viewDepartments() {
+	const query = "SELECT * FROM departments";
+
+	connection.query(query, (error, response) => {
+		if (error) throw error;
+
+		console.table(response);
+	});
+}
+
+// Required
 //     View departments
 //     View roles
 //     View employees
@@ -65,8 +76,4 @@ function runApp() {
  *      view employees by manager
  *      Delete departments, roles, and employees
  *      View total utilized budget of a dept -- combined salary of dept
- */
-
-/** Included in GIF but not README
- *      View all employees by dept
  */
