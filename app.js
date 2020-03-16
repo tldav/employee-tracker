@@ -1,5 +1,5 @@
-const inquirer = require("inquirer");
 const mysql = require("mysql");
+const inquirer = require("inquirer");
 
 const connection = mysql.createConnection({
 	host: "localhost",
@@ -28,61 +28,52 @@ function runApp() {
 				"Add a department",
 				"Add a role",
 				"Add an employee",
-				"Update existing employee"
+				"Update existing employee",
+				"Exit"
 			]
 		})
 		.then((answer) => {
 			switch (answer.action) {
 				case "View departments":
-					viewDepartments();
+					view("departments");
 					break;
 				case "View roles":
-					viewRoles();
+					view("roles");
 					break;
 				case "View employees":
-					viewEmployees();
+					view("employees");
 					break;
 				case "Add a department":
+					addDepartment();
 					break;
 				case "Add a role":
+					addRole();
 					break;
 				case "Add an employee":
+					addEmployee();
 					break;
 				case "Update existing employee":
+					updateEmployee();
 					break;
+				case "Exit":
+					connection.end();
+					console.log("Goodbye");
 			}
 		});
 }
 
-function viewDepartments() {
-	const query = "SELECT * FROM departments";
+// View Data Function. DB table name is passed in.
+function view(type) {
+	const query = `SELECT * FROM ${type}`;
 
 	connection.query(query, (error, response) => {
 		if (error) throw error;
 
 		console.table(response);
+		runApp();
 	});
 }
 
-function viewRoles() {
-	const query = "SELECT * FROM roles";
-
-	connection.query(query, (error, response) => {
-		if (error) throw error;
-
-		console.table(response);
-	});
-}
-
-function viewEmployees() {
-	const query = "SELECT * FROM employees";
-
-	connection.query(query, (error, response) => {
-		if (error) throw error;
-
-		console.table(response);
-	});
-}
 // Required
 //     View departments
 //     View roles
