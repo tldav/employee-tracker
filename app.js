@@ -74,6 +74,29 @@ function view(type) {
 	});
 }
 
+function addDepartment() {
+	inquirer
+		.prompt({
+			name: "action",
+			type: "input",
+			message: "What's the name of the department you would like to add?"
+		})
+		.then((answer) => {
+			const query = `INSERT INTO departments SET ?`;
+
+			connection.query(
+				query,
+				{ name: answer.action },
+				(error, response) => {
+					if (error) throw error;
+
+					return response;
+				}
+			);
+			view("departments");
+		});
+}
+
 // Required
 //     View departments
 //     View roles
