@@ -37,6 +37,7 @@ function runApp() {
 					viewDepartments();
 					break;
 				case "View roles":
+					viewRoles();
 					break;
 				case "View employees":
 					break;
@@ -62,6 +63,15 @@ function viewDepartments() {
 	});
 }
 
+function viewRoles() {
+	const query = "SELECT * FROM roles";
+
+	connection.query(query, (error, response) => {
+		if (error) throw error;
+
+		console.table(response);
+	});
+}
 // Required
 //     View departments
 //     View roles
