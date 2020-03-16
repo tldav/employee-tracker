@@ -97,6 +97,29 @@ function addDepartment() {
 		});
 }
 
+function addRole() {
+	inquirer.prompt([
+		{
+			name: "title",
+			type: "input",
+			message: "What's the name of the role?"
+		},
+
+		{
+			name: "salary",
+			type: "input",
+			message: "What's the salary for the role?"
+		},
+
+		{
+			name: "deptID",
+			type: "list",
+			message: "What department is the role being added to?",
+			choices: ["Sales", "Engineering", "Finance", "Legal"]
+		}
+	]);
+}
+
 // Required
 //     View departments
 //     View roles
