@@ -103,7 +103,7 @@ function addRole() {
 			{
 				name: "title",
 				type: "input",
-				message: "What's the name of the role?"
+				message: "What's the name of the new role?"
 			},
 
 			{
@@ -113,7 +113,7 @@ function addRole() {
 			},
 
 			{
-				name: "department_id",
+				name: "manager_id",
 				type: "list",
 				message: "What department is the role being added to?",
 				choices: ["1", "2", "3", "4"]
@@ -133,6 +133,59 @@ function addRole() {
 				}
 			);
 			view("roles");
+		});
+}
+
+function addEmployee() {
+	inquirer
+		.prompt([
+			{
+				name: "first",
+				type: "input",
+				message: "What's the first name of the new employee?"
+			},
+
+			{
+				name: "last",
+				type: "input",
+				message: "What's the last name of the new employee?"
+			},
+
+			{
+				name: "role_id",
+				type: "input",
+				message: "What's the new employee's role ID?"
+			},
+			{
+				name: "manager_id",
+				type: "input",
+				message:
+					"What's the new employee's manager's ID, if applicable?"
+			}
+		])
+		.then((answer) => {
+			const query =
+				"INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ?";
+
+			connection.query(
+				query,
+				[
+					[
+						[
+							answer.first,
+							answer.last,
+							answer.role_id,
+							answer.manager_id
+						]
+					]
+				],
+				(error, response) => {
+					if (error) throw error;
+
+					return response;
+				}
+			);
+			view("employees");
 		});
 }
 
