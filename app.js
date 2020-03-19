@@ -74,6 +74,7 @@ function view(type) {
 	});
 }
 
+// Adds a department to the departments table.
 function addDepartment() {
 	inquirer
 		.prompt({
@@ -97,6 +98,7 @@ function addDepartment() {
 		});
 }
 
+// Adds a role to the roles table.
 function addRole() {
 	inquirer
 		.prompt([
@@ -134,6 +136,7 @@ function addRole() {
 		});
 }
 
+// Adds employee to the employees table.
 function addEmployee() {
 	inquirer
 		.prompt([
@@ -185,6 +188,7 @@ function addEmployee() {
 		});
 }
 
+// Updates the employee's role ID. The epmloyee to update is selected by the id from the employees table.
 function updateEmployee() {
 	inquirer
 		.prompt([
@@ -215,13 +219,3 @@ function updateEmployee() {
 			view("employees");
 		});
 }
-
-// Required
-//     Update Employee
-
-/** Optional
- *      Update employee manager
- *      view employees by manager
- *      Delete departments, roles, and employees
- *      View total utilized budget of a dept -- combined salary of dept
- */
