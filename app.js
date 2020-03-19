@@ -105,13 +105,11 @@ function addRole() {
 				type: "input",
 				message: "What's the name of the new role?"
 			},
-
 			{
 				name: "salary",
 				type: "input",
 				message: "What's the salary for the role?"
 			},
-
 			{
 				name: "manager_id",
 				type: "list",
@@ -144,13 +142,11 @@ function addEmployee() {
 				type: "input",
 				message: "What's the first name of the new employee?"
 			},
-
 			{
 				name: "last",
 				type: "input",
 				message: "What's the last name of the new employee?"
 			},
-
 			{
 				name: "role_id",
 				type: "input",
@@ -189,8 +185,38 @@ function addEmployee() {
 		});
 }
 
+function updateEmployee() {
+	inquirer
+		.prompt([
+			{
+				name: "id",
+				type: "input",
+				message:
+					"What's the ID number of the employee whose role you'd like to update?"
+			},
+			{
+				name: "new",
+				type: "input",
+				message: "What's the new role ID for this employee?"
+			}
+		])
+		.then((answer) => {
+			const query = "UPDATE employees SET role_id=? WHERE id=?";
+
+			connection.query(
+				query,
+				[answer.new, answer.id],
+				(error, response) => {
+					if (error) throw error;
+
+					return response;
+				}
+			);
+			view("employees");
+		});
+}
+
 // Required
-//     Add Employee
 //     Update Employee
 
 /** Optional
