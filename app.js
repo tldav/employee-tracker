@@ -98,34 +98,45 @@ function addDepartment() {
 }
 
 function addRole() {
-	inquirer.prompt([
-		{
-			name: "title",
-			type: "input",
-			message: "What's the name of the role?"
-		},
+	inquirer
+		.prompt([
+			{
+				name: "title",
+				type: "input",
+				message: "What's the name of the role?"
+			},
 
-		{
-			name: "salary",
-			type: "input",
-			message: "What's the salary for the role?"
-		},
+			{
+				name: "salary",
+				type: "input",
+				message: "What's the salary for the role?"
+			},
 
-		{
-			name: "deptID",
-			type: "list",
-			message: "What department is the role being added to?",
-			choices: ["Sales", "Engineering", "Finance", "Legal"]
-		}
-	]);
+			{
+				name: "department_id",
+				type: "list",
+				message: "What department is the role being added to?",
+				choices: ["1", "2", "3", "4"]
+			}
+		])
+		.then((answer) => {
+			const query =
+				"INSERT INTO roles (title, salary, department_id) VALUES ?";
+
+			connection.query(
+				query,
+				[[[answer.title, answer.salary, answer.department_id]]],
+				(error, response) => {
+					if (error) throw error;
+
+					return response;
+				}
+			);
+			view("roles");
+		});
 }
 
 // Required
-//     View departments
-//     View roles
-//     View employees
-//     Add department
-//     Add role
 //     Add Employee
 //     Update Employee
 
