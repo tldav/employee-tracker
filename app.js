@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
 	port: 3306,
 	user: "root",
 	password: "",
-	database: "employeesDB"
+	database: "employeesDB",
 });
 
 connection.connect((err) => {
@@ -29,8 +29,8 @@ function runApp() {
 				"Add a role",
 				"Add an employee",
 				"Update existing employee",
-				"Exit"
-			]
+				"Exit",
+			],
 		})
 		.then((answer) => {
 			switch (answer.action) {
@@ -74,26 +74,21 @@ function view(type) {
 	});
 }
 
-// Adds a department to the departments table.
 function addDepartment() {
 	inquirer
 		.prompt({
 			name: "action",
 			type: "input",
-			message: "What's the name of the department you would like to add?"
+			message: "What's the name of the department you would like to add?",
 		})
 		.then((answer) => {
 			const query = `INSERT INTO departments SET ?`;
 
-			connection.query(
-				query,
-				{ name: answer.action },
-				(error, response) => {
-					if (error) throw error;
+			connection.query(query, { name: answer.action }, (error, response) => {
+				if (error) throw error;
 
-					return response;
-				}
-			);
+				return response;
+			});
 			view("departments");
 		});
 }
@@ -105,23 +100,22 @@ function addRole() {
 			{
 				name: "title",
 				type: "input",
-				message: "What's the name of the new role?"
+				message: "What's the name of the new role?",
 			},
 			{
 				name: "salary",
 				type: "input",
-				message: "What's the salary for the role?"
+				message: "What's the salary for the role?",
 			},
 			{
 				name: "manager_id",
 				type: "list",
 				message: "What department is the role being added to?",
-				choices: ["1", "2", "3", "4"]
-			}
+				choices: ["1", "2", "3", "4"],
+			},
 		])
 		.then((answer) => {
-			const query =
-				"INSERT INTO roles (title, salary, department_id) VALUES ?";
+			const query = "INSERT INTO roles (title, salary, department_id) VALUES ?";
 
 			connection.query(
 				query,
@@ -143,24 +137,23 @@ function addEmployee() {
 			{
 				name: "first",
 				type: "input",
-				message: "What's the first name of the new employee?"
+				message: "What's the first name of the new employee?",
 			},
 			{
 				name: "last",
 				type: "input",
-				message: "What's the last name of the new employee?"
+				message: "What's the last name of the new employee?",
 			},
 			{
 				name: "role_id",
 				type: "input",
-				message: "What's the new employee's role ID?"
+				message: "What's the new employee's role ID?",
 			},
 			{
 				name: "manager_id",
 				type: "input",
-				message:
-					"What's the new employee's manager's ID, if applicable?"
-			}
+				message: "What's the new employee's manager's ID, if applicable?",
+			},
 		])
 		.then((answer) => {
 			const query =
@@ -168,16 +161,7 @@ function addEmployee() {
 
 			connection.query(
 				query,
-				[
-					[
-						[
-							answer.first,
-							answer.last,
-							answer.role_id,
-							answer.manager_id
-						]
-					]
-				],
+				[[[answer.first, answer.last, answer.role_id, answer.manager_id]]],
 				(error, response) => {
 					if (error) throw error;
 
@@ -195,27 +179,22 @@ function updateEmployee() {
 			{
 				name: "id",
 				type: "input",
-				message:
-					"What's the ID number of the employee whose role you'd like to update?"
+				message: "What's the ID number of the employee whose role you'd like to update?",
 			},
 			{
 				name: "new",
 				type: "input",
-				message: "What's the new role ID for this employee?"
-			}
+				message: "What's the new role ID for this employee?",
+			},
 		])
 		.then((answer) => {
 			const query = "UPDATE employees SET role_id=? WHERE id=?";
 
-			connection.query(
-				query,
-				[answer.new, answer.id],
-				(error, response) => {
-					if (error) throw error;
+			connection.query(query, [answer.new, answer.id], (error, response) => {
+				if (error) throw error;
 
-					return response;
-				}
-			);
+				return response;
+			});
 			view("employees");
 		});
 }
