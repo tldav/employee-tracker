@@ -62,7 +62,6 @@ function runApp() {
 		});
 }
 
-// View Data Function. DB table name is passed in.
 function view(type) {
 	const query = `SELECT * FROM ${type}`;
 
