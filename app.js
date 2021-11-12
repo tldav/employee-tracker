@@ -92,7 +92,6 @@ function addDepartment() {
 		});
 }
 
-// Adds a role to the roles table.
 function addRole() {
 	inquirer
 		.prompt([
